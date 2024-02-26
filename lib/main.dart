@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'screens/auth-ui/sign-in-screen.dart';
+import 'screens/auth-ui/sign-up-screen.dart';
 import 'screens/auth-ui/splash-screen.dart';
 import 'screens/user-panel/main-screen.dart';
 
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      home: const SignUpScreen(),
     );
   }
 }
