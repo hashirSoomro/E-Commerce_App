@@ -1,4 +1,9 @@
+import 'package:e_comm/screens/auth-ui/welcome-screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../../utils/app-constant.dart';
 
 class MainScreen extends StatelessWidget {
@@ -8,9 +13,26 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: AppConstant.appSecondaryColor,
+            statusBarIconBrightness: Brightness.light),
         backgroundColor: AppConstant.appMainColor,
         title: Text(AppConstant.appMainName),
         centerTitle: true,
+        actions: [
+          GestureDetector(
+            onTap: () async {
+              GoogleSignIn googleSignIn = GoogleSignIn();
+
+              await googleSignIn.signOut();
+              Get.offAll(() => WelcomeScreen());
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(Icons.logout),
+            ),
+          )
+        ],
       ),
     );
   }
