@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "644146746823",
+    "project_id": "ecommshopping-b31ff",
+    "storage_bucket": "ecommshopping-b31ff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644146746823:android:3e195e17738a9aa5d635e2",
+        "android_client_info": {
+          "package_name": "com.example.e_comm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4HeEgWxQR4anZJd_8LqQ1vjPTEcapxuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
