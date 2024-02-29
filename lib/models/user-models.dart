@@ -13,6 +13,7 @@ class UserModel {
   final bool isAdmin;
   final bool isActive;
   final dynamic createdOn;
+  final String city;
 
   UserModel({
     required this.uId,
@@ -27,6 +28,7 @@ class UserModel {
     required this.isAdmin,
     required this.isActive,
     required this.createdOn,
+    required this.city,
   });
 
   //Serialize the UserModel instance to a JSON map
@@ -43,24 +45,27 @@ class UserModel {
       'street': street,
       'isAdmin': isAdmin,
       'isActive': isActive,
-      'createdOn': createdOn
+      'createdOn': createdOn,
+      'city': city
     };
   }
 
   //Create a UserModel instance from a JSON map
   factory UserModel.fromMap(Map<String, dynamic> json) {
     return UserModel(
-        uId: json['uId'],
-        username: json['username'],
-        email: json['email'],
-        phone: json['phone'],
-        userImg: json['userImg'],
-        userDeviceToken: json['userDeviceToken'],
-        country: json['country'],
-        userAddress: json['userAddress'],
-        street: json['street'],
-        isAdmin: json['isAdmin'],
-        isActive: json['isActive'],
-        createdOn: json['createdOn'].toString());
+      uId: json['uId'],
+      username: json['username'],
+      email: json['email'],
+      phone: json['phone'],
+      userImg: json['userImg'],
+      userDeviceToken: json['userDeviceToken'],
+      country: json['country'],
+      userAddress: json['userAddress'],
+      street: json['street'],
+      isAdmin: json['isAdmin'],
+      isActive: json['isActive'],
+      createdOn: json['createdOn'].toString(),
+      city: json['city'],
+    );
   }
 }

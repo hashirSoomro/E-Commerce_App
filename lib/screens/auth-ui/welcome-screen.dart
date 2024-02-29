@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../utils/app-constant.dart';
+import 'sign-in-screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   WelcomeScreen({super.key});
@@ -88,7 +89,9 @@ class WelcomeScreen extends StatelessWidget {
                     style: TextStyle(
                         color: AppConstant.appTextColor, fontSize: 18),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.to(() => SignInScreen());
+                  },
                 ),
               ),
             )
