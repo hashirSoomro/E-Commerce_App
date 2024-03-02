@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../utils/app-constant.dart';
+import 'forget-password-screen.dart';
 import 'sign-up-screen.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -101,11 +102,16 @@ class _SignInScreenState extends State<SignInScreen> {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 15),
                 alignment: Alignment.centerRight,
-                child: Text(
-                  "Forgot Password?",
-                  style: TextStyle(
-                      color: AppConstant.appSecondaryColor,
-                      fontWeight: FontWeight.bold),
+                child: GestureDetector(
+                  onTap: () {
+                    Get.to(() => ForgetPasswordScreen());
+                  },
+                  child: Text(
+                    "Forgot Password?",
+                    style: TextStyle(
+                        color: AppConstant.appSecondaryColor,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
               ),
               SizedBox(
