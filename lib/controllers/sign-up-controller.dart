@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../models/user-models.dart';
 import '../utils/app-constant.dart';
+import 'get-device-token-controller.dart';
 
 class SignUpController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -23,6 +24,8 @@ class SignUpController extends GetxController {
     String userPassword,
     String userDeviceToken,
   ) async {
+    final GetDeviceTokenController getDeviceTokenController =
+        Get.put(GetDeviceTokenController());
     try {
       EasyLoading.show(status: "Please wait");
       UserCredential userCredential =
@@ -40,7 +43,7 @@ class SignUpController extends GetxController {
         email: userEmail,
         phone: userPhone,
         userImg: '',
-        userDeviceToken: userDeviceToken,
+        userDeviceToken: getDeviceTokenController.deviceToken.toString(),
         country: '',
         userAddress: '',
         street: '',
