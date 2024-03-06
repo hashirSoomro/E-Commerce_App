@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../utils/app-constant.dart';
 import '../../widgets/banner-widget.dart';
 import '../../widgets/custom-drawer-widget.dart';
+import '../../widgets/heading-widget.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -36,6 +37,20 @@ class MainScreen extends StatelessWidget {
               ),
               //banners
               BannerWidget(),
+
+              //heading
+              HeadingWidget(
+                headingTitle: "Categories",
+                headingSubTitle: "According to your budget",
+                onTap: () {},
+                buttonText: "See More ->",
+              ),
+              HeadingWidget(
+                headingTitle: "Flash Sale",
+                headingSubTitle: "Upto 50% off",
+                onTap: () {},
+                buttonText: "See More ->",
+              ),
             ],
           ),
         ),
