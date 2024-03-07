@@ -1,13 +1,15 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables
 
-import 'package:e_comm/widgets/category-widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../utils/app-constant.dart';
 import '../../widgets/banner-widget.dart';
+import '../../widgets/category-widget.dart';
 import '../../widgets/custom-drawer-widget.dart';
+import '../../widgets/flash-sale-widget.dart';
 import '../../widgets/heading-widget.dart';
+import 'all-categories-screen.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -43,7 +45,7 @@ class MainScreen extends StatelessWidget {
               HeadingWidget(
                 headingTitle: "Categories",
                 headingSubTitle: "According to your budget",
-                onTap: () {},
+                onTap: () => Get.to(AllCategoriesScreen()),
                 buttonText: "See More ->",
               ),
 
@@ -55,6 +57,8 @@ class MainScreen extends StatelessWidget {
                 onTap: () {},
                 buttonText: "See More ->",
               ),
+
+              FlashSaleWidget()
             ],
           ),
         ),
