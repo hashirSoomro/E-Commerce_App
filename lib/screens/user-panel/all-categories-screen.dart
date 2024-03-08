@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:image_card/image_card.dart';
 
 import '../../models/categories-model.dart';
+import 'single-category-products-screen.dart';
 
 class AllCategoriesScreen extends StatefulWidget {
   const AllCategoriesScreen({super.key});
@@ -67,20 +68,25 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
                 );
                 return Row(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Container(
-                        child: FillImageCard(
-                          borderRadius: 20,
-                          width: Get.width / 2.3,
-                          heightImage: Get.height / 10,
-                          imageProvider: CachedNetworkImageProvider(
-                            categoryModel.categoryImg,
-                          ),
-                          title: Center(
-                            child: Text(
-                              categoryModel.categoryName,
-                              style: TextStyle(fontSize: 12),
+                    GestureDetector(
+                      onTap: () => Get.to(() => SingleCategoryProductsScreen(
+                            categoryId: categoryModel.categoryId,
+                          )),
+                      child: Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Container(
+                          child: FillImageCard(
+                            borderRadius: 20,
+                            width: Get.width / 2.3,
+                            heightImage: Get.height / 10,
+                            imageProvider: CachedNetworkImageProvider(
+                              categoryModel.categoryImg,
+                            ),
+                            title: Center(
+                              child: Text(
+                                categoryModel.categoryName,
+                                style: TextStyle(fontSize: 12),
+                              ),
                             ),
                           ),
                         ),

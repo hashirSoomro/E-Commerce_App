@@ -2,8 +2,10 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_comm/screens/user-panel/single-category-products-screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_card/image_card.dart';
 
@@ -52,20 +54,25 @@ class CategoryWidget extends StatelessWidget {
                 );
                 return Row(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Container(
-                        child: FillImageCard(
-                          borderRadius: 20,
-                          width: Get.width / 4,
-                          heightImage: Get.height / 12,
-                          imageProvider: CachedNetworkImageProvider(
-                            categoryModel.categoryImg,
-                          ),
-                          title: Center(
-                            child: Text(
-                              categoryModel.categoryName,
-                              style: TextStyle(fontSize: 12),
+                    GestureDetector(
+                      onTap: () => Get.to(() => SingleCategoryProductsScreen(
+                            categoryId: categoryModel.categoryId,
+                          )),
+                      child: Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Container(
+                          child: FillImageCard(
+                            borderRadius: 20,
+                            width: Get.width / 4,
+                            heightImage: Get.height / 12,
+                            imageProvider: CachedNetworkImageProvider(
+                              categoryModel.categoryImg,
+                            ),
+                            title: Center(
+                              child: Text(
+                                categoryModel.categoryName,
+                                style: TextStyle(fontSize: 12),
+                              ),
                             ),
                           ),
                         ),
