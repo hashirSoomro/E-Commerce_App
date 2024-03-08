@@ -23,7 +23,11 @@ class _AllCategoriesScreenState extends State<AllCategoriesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("All Categories"),
+        iconTheme: IconThemeData(color: AppConstant.appTextColor),
+        title: Text(
+          "All Categories",
+          style: TextStyle(color: AppConstant.appTextColor),
+        ),
         backgroundColor: AppConstant.appMainColor,
       ),
       body: FutureBuilder(

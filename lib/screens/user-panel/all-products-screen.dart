@@ -1,33 +1,25 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, sized_box_for_whitespace, must_be_immutable, unused_local_variable
+// ignore_for_file: file_names, avoid_unnecessary_containers, prefer_const_constructors, sized_box_for_whitespace, unnecessary_string_interpolations, prefer_interpolation_to_compose_strings
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_comm/utils/app-constant.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_card/image_card.dart';
 
 import '../../models/product-model.dart';
+import '../../utils/app-constant.dart';
 
-class SingleCategoryProductsScreen extends StatefulWidget {
-  String categoryId;
-  SingleCategoryProductsScreen({super.key, required this.categoryId});
+class AllProductsScreen extends StatelessWidget {
+  const AllProductsScreen({super.key});
 
-  @override
-  State<SingleCategoryProductsScreen> createState() =>
-      _SingleCategoryProductsScreenState();
-}
-
-class _SingleCategoryProductsScreenState
-    extends State<SingleCategoryProductsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: AppConstant.appTextColor),
         title: Text(
-          'Products',
+          "All Products",
           style: TextStyle(color: AppConstant.appTextColor),
         ),
         backgroundColor: AppConstant.appMainColor,
@@ -35,7 +27,7 @@ class _SingleCategoryProductsScreenState
       body: FutureBuilder(
         future: FirebaseFirestore.instance
             .collection('products')
-            .where('categoryId', isEqualTo: widget.categoryId)
+            .where('isSale', isEqualTo: false)
             .get(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
@@ -53,7 +45,7 @@ class _SingleCategoryProductsScreenState
           }
           if (snapshot.data!.docs.isEmpty) {
             return Center(
-              child: Text("No Category Found!"),
+              child: Text("No Products Found!"),
             );
           }
           if (snapshot.data != null) {
@@ -63,9 +55,9 @@ class _SingleCategoryProductsScreenState
               physics: BouncingScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                mainAxisSpacing: 3,
-                crossAxisSpacing: 3,
-                childAspectRatio: 1.19,
+                mainAxisSpacing: 5,
+                crossAxisSpacing: 5,
+                childAspectRatio: 0.80,
               ),
               itemBuilder: (context, index) {
                 final productData = snapshot.data!.docs[index];
@@ -92,22 +84,30 @@ class _SingleCategoryProductsScreenState
                 // );
                 return Row(
                   children: [
-                    Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Container(
-                        child: FillImageCard(
-                          borderRadius: 20,
-                          width: Get.width / 2.3,
-                          heightImage: Get.height / 10,
-                          imageProvider: CachedNetworkImageProvider(
-                            productModel.productImages[0],
-                          ),
-                          title: Center(
-                            child: Text(
-                              productModel.productName,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 12),
+                    GestureDetector(
+                      // onTap: () => Get.to(() => SingleCategoryProductsScreen(
+                      //       productId: productModel.productId,
+                      //     )),
+                      child: Padding(
+                        padding: EdgeInsets.all(8),
+                        child: Container(
+                          child: FillImageCard(
+                            borderRadius: 20,
+                            width: Get.width / 2.3,
+                            heightImage: Get.height / 6,
+                            imageProvider: CachedNetworkImageProvider(
+                              productModel.productImages[0],
                             ),
+                            title: Center(
+                              child: Text(
+                                productModel.productName,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            ),
+                            footer: Center(
+                                child: Text("PKR: " + productModel.fullPrice)),
                           ),
                         ),
                       ),

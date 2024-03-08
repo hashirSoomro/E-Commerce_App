@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../utils/app-constant.dart';
+import '../../widgets/all-products-widget.dart';
 import '../../widgets/banner-widget.dart';
 import '../../widgets/category-widget.dart';
 import '../../widgets/custom-drawer-widget.dart';
@@ -12,6 +13,7 @@ import '../../widgets/flash-sale-widget.dart';
 import '../../widgets/heading-widget.dart';
 import 'all-categories-screen.dart';
 import 'all-flash-sale-products-screen.dart';
+import 'all-products-screen.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -60,7 +62,17 @@ class MainScreen extends StatelessWidget {
                 buttonText: "See More ->",
               ),
 
-              FlashSaleWidget()
+              FlashSaleWidget(),
+
+              //heading
+              HeadingWidget(
+                headingTitle: "All Products",
+                headingSubTitle: "According to your budget",
+                onTap: () => Get.to(AllProductsScreen()),
+                buttonText: "See More ->",
+              ),
+
+              AllProductsWidget(),
             ],
           ),
         ),

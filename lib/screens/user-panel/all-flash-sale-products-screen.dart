@@ -24,7 +24,11 @@ class _AllFlashSaleProductsScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Flash Sale Products"),
+        iconTheme: IconThemeData(color: AppConstant.appTextColor),
+        title: Text(
+          "Flash Sale Products",
+          style: TextStyle(color: AppConstant.appTextColor),
+        ),
         backgroundColor: AppConstant.appMainColor,
       ),
       body: FutureBuilder(
@@ -117,15 +121,6 @@ class _AllFlashSaleProductsScreenState
                 );
               },
             );
-            // Container(
-            //   height: Get.height / 5,
-            //   child: ListView.builder(
-            //     itemCount: snapshot.data!.docs.length,
-            //     shrinkWrap: true,
-            //     scrollDirection: Axis.horizontal,
-
-            //   ),
-            // );
           }
           return Container();
         },
