@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
 import '../../utils/app-constant.dart';
 import '../../widgets/banner-widget.dart';
 import '../../widgets/category-widget.dart';
@@ -10,6 +11,7 @@ import '../../widgets/custom-drawer-widget.dart';
 import '../../widgets/flash-sale-widget.dart';
 import '../../widgets/heading-widget.dart';
 import 'all-categories-screen.dart';
+import 'all-flash-sale-products-screen.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -54,7 +56,7 @@ class MainScreen extends StatelessWidget {
               HeadingWidget(
                 headingTitle: "Flash Sale",
                 headingSubTitle: "Upto 50% off",
-                onTap: () {},
+                onTap: () => Get.to(AllFlashSaleProductsScreen()),
                 buttonText: "See More ->",
               ),
 
