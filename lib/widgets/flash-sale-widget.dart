@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:image_card/image_card.dart';
 
 import '../models/categories-model.dart';
+import '../screens/user-panel/product-details-screen.dart';
 
 class FlashSaleWidget extends StatelessWidget {
   const FlashSaleWidget({super.key});
@@ -62,50 +63,54 @@ class FlashSaleWidget extends StatelessWidget {
                   createdAt: productData['createdAt'],
                   updatedAt: productData['updatedAt'],
                 );
-                return Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Container(
-                        child: FillImageCard(
-                          borderRadius: 20,
-                          width: Get.width / 3.5,
-                          heightImage: Get.height / 12,
-                          imageProvider: CachedNetworkImageProvider(
-                            productModel.productImages[0],
-                          ),
-                          title: Center(
-                            child: Text(
-                              productModel.productName,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 12),
+                return GestureDetector(
+                  onTap: () => Get.to(
+                      () => ProductDetailsScreen(productModel: productModel)),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Container(
+                          child: FillImageCard(
+                            borderRadius: 20,
+                            width: Get.width / 3.5,
+                            heightImage: Get.height / 12,
+                            imageProvider: CachedNetworkImageProvider(
+                              productModel.productImages[0],
+                            ),
+                            title: Center(
+                              child: Text(
+                                productModel.productName,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 12),
+                              ),
+                            ),
+                            footer: Row(
+                              children: [
+                                Text(
+                                  "Rs${productModel.salePrice}",
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 2.0,
+                                ),
+                                Text(
+                                  "${productModel.fullPrice}",
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.grey.shade600,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                                )
+                              ],
                             ),
                           ),
-                          footer: Row(
-                            children: [
-                              Text(
-                                "Rs${productModel.salePrice}",
-                                style: TextStyle(
-                                  fontSize: 10,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 2.0,
-                              ),
-                              Text(
-                                "${productModel.fullPrice}",
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.grey.shade600,
-                                  decoration: TextDecoration.lineThrough,
-                                ),
-                              )
-                            ],
-                          ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 );
               },
             ),
