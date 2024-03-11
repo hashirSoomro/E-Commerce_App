@@ -2,6 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -19,6 +20,7 @@ class ProductDetailsScreen extends StatefulWidget {
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,7 +140,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     borderRadius: BorderRadius.circular(20)),
                                 child: TextButton(
                                   child: Text(
-                                    "Add to Cart",
+                                    "WhatsApp",
                                     style: TextStyle(
                                         color: AppConstant.appTextColor,
                                         fontSize: 16),
@@ -159,12 +161,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                     borderRadius: BorderRadius.circular(20)),
                                 child: TextButton(
                                   child: Text(
-                                    "WhatsApp",
+                                    "Add to Cart",
                                     style: TextStyle(
                                         color: AppConstant.appTextColor,
                                         fontSize: 16),
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () async {
+                                    await checkProductExistence(uId: user!.uid);
+                                  },
                                 ),
                               ),
                             ),
@@ -179,4 +183,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
       ),
     );
   }
+
+  //check product exist or not
+  Future<void> checkProductExistence({required String uId}) async {}
 }
