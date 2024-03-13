@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 
 import '../../models/product-model.dart';
 import '../../utils/app-constant.dart';
+import 'cart-screen.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   ProductModel productModel;
@@ -33,6 +34,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           "Product Details",
           style: TextStyle(color: AppConstant.appTextColor),
         ),
+        actions: [
+          GestureDetector(
+            onTap: () => Get.to(() => CartScreen()),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(Icons.shopping_cart),
+            ),
+          )
+        ],
       ),
       body: Container(
         child: Column(

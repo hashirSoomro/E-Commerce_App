@@ -1,8 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../models/cart-model.dart';
 import '../../utils/app-constant.dart';
 
 class CartScreen extends StatefulWidget {
@@ -13,6 +17,7 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,46 +29,94 @@ class _CartScreenState extends State<CartScreen> {
           style: TextStyle(color: AppConstant.appTextColor),
         ),
       ),
-      body: Container(
-        child: ListView.builder(
-            itemCount: 10,
-            shrinkWrap: true,
-            physics: BouncingScrollPhysics(),
-            itemBuilder: (context, index) {
-              return Card(
-                elevation: 5,
-                color: AppConstant.appTextColor,
-                child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: AppConstant.appMainColor,
-                    child: Text("N"),
-                  ),
-                  title: Text(""),
-                  subtitle: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text("2200"),
-                      SizedBox(
-                        width: Get.width / 20,
+      body: FutureBuilder(
+        future: FirebaseFirestore.instance
+            .collection('cart')
+            .doc(user!.uid)
+            .collection('cartOrders')
+            .get(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Center(
+              child: Text("Error"),
+            );
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Container(
+              height: Get.height / 5,
+              child: Center(
+                child: CupertinoActivityIndicator(),
+              ),
+            );
+          }
+          if (snapshot.data!.docs.isEmpty) {
+            return Center(
+              child: Text("No Products Found!"),
+            );
+          }
+          if (snapshot.data != null) {
+            return Container(
+              child: ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    final productData = snapshot.data!.docs[index];
+                    CartModel cartModel = CartModel(
+                      productId: productData['productId'],
+                      categoryId: productData['categoryId'],
+                      productName: productData['productName'],
+                      categoryName: productData['categoryName'],
+                      salePrice: productData['salePrice'],
+                      fullPrice: productData['fullPrice'],
+                      productImages: productData['productImages'],
+                      deliveryTime: productData['deliveryTime'],
+                      isSale: productData['isSale'],
+                      productDescription: productData['productDescription'],
+                      createdAt: productData['createdAt'],
+                      updatedAt: productData['updatedAt'],
+                      productQuantity: productData['productQuantity'],
+                      productTotalPrice: productData['productTotalPrice'],
+                    );
+                    return Card(
+                      elevation: 5,
+                      color: AppConstant.appTextColor,
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          backgroundColor: AppConstant.appMainColor,
+                          backgroundImage:
+                              NetworkImage(cartModel.productImages[0]),
+                        ),
+                        title: Text(cartModel.productName),
+                        subtitle: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(cartModel.productTotalPrice.toString()),
+                            SizedBox(
+                              width: Get.width / 20,
+                            ),
+                            CircleAvatar(
+                              radius: 14,
+                              backgroundColor: AppConstant.appMainColor,
+                              child: Text('-'),
+                            ),
+                            SizedBox(
+                              width: Get.width / 20,
+                            ),
+                            CircleAvatar(
+                              radius: 14,
+                              backgroundColor: AppConstant.appMainColor,
+                              child: Text('+'),
+                            )
+                          ],
+                        ),
                       ),
-                      CircleAvatar(
-                        radius: 14,
-                        backgroundColor: AppConstant.appMainColor,
-                        child: Text('-'),
-                      ),
-                      SizedBox(
-                        width: Get.width / 20,
-                      ),
-                      CircleAvatar(
-                        radius: 14,
-                        backgroundColor: AppConstant.appMainColor,
-                        child: Text('+'),
-                      )
-                    ],
-                  ),
-                ),
-              );
-            }),
+                    );
+                  }),
+            );
+          }
+          return Container();
+        },
       ),
       bottomNavigationBar: Container(
         margin: EdgeInsets.only(
@@ -72,8 +125,7 @@ class _CartScreenState extends State<CartScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Total: "),
-            Text("PKR: 1200"),
+            Text("Total: PKR: 1200"),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Material(

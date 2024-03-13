@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../utils/app-constant.dart';
@@ -34,7 +35,7 @@ class MainScreen extends StatelessWidget {
         ),
         centerTitle: true,
         actions: [
-          InkWell(
+          GestureDetector(
             onTap: () => Get.to(() => CartScreen()),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
