@@ -202,8 +202,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
     if (snapshot.exists) {
       int currentQuantity = snapshot['productQuantity'];
       int updatedQuantity = currentQuantity + quantityIncrement;
-      double totalPrice =
-          double.parse(widget.productModel.fullPrice) * updatedQuantity;
+      double totalPrice = double.parse(widget.productModel.isSale
+              ? widget.productModel.salePrice
+              : widget.productModel.fullPrice) *
+          updatedQuantity;
 
       await documentReference.update({
         'productQuantity': updatedQuantity,
@@ -229,7 +231,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           createdAt: DateTime.now(),
           updatedAt: DateTime.now(),
           productQuantity: 1,
-          productTotalPrice: double.parse(widget.productModel.fullPrice));
+          productTotalPrice: double.parse(widget.productModel.isSale
+              ? widget.productModel.salePrice
+              : widget.productModel.fullPrice));
 
       await documentReference.set(cartModel.toMap());
     }
