@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_comm/controllers/cart-price-controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,8 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   User? user = FirebaseAuth.instance.currentUser;
+  final ProductPriceController productPriceController =
+      Get.put(ProductPriceController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,6 +83,10 @@ class _CartScreenState extends State<CartScreen> {
                       productQuantity: productData['productQuantity'],
                       productTotalPrice: productData['productTotalPrice'],
                     );
+
+                    //Calculate Price
+                    productPriceController.fetchProductPrice();
+
                     return SwipeActionCell(
                       key: ObjectKey(cartModel.productId),
                       trailingActions: [
@@ -186,7 +193,10 @@ class _CartScreenState extends State<CartScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Total: PKR: 1200"),
+            Obx(
+              () => Text(
+                  "PKR : ${productPriceController.totalPrice.toStringAsFixed(1)}"),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Material(
