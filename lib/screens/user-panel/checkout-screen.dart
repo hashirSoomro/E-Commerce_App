@@ -86,7 +86,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       createdAt: productData['createdAt'],
                       updatedAt: productData['updatedAt'],
                       productQuantity: productData['productQuantity'],
-                      productTotalPrice: productData['productTotalPrice'],
+                      productTotalPrice: double.parse(
+                          productData['productTotalPrice'].toString()),
                     );
 
                     //Calculate Price
@@ -193,8 +194,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 child: Container(
                   height: 55,
                   child: TextFormField(
+                    controller: nameController,
                     textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.phone,
+                    keyboardType: TextInputType.name,
                     decoration: InputDecoration(
                       labelText: 'Name',
                       contentPadding: EdgeInsets.symmetric(
@@ -211,6 +213,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 child: Container(
                   height: 55,
                   child: TextFormField(
+                    controller: phoneController,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
@@ -229,6 +232,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 child: Container(
                   height: 55,
                   child: TextFormField(
+                    controller: addressController,
                     keyboardType: TextInputType.streetAddress,
                     decoration: InputDecoration(
                       labelText: 'Address',
