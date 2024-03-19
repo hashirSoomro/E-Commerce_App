@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, prefer_const_constructors, avoid_unnecessary_containers, prefer_interpolation_to_compose_strings
+// ignore_for_file: must_be_immutable, prefer_const_constructors, avoid_unnecessary_containers, prefer_interpolation_to_compose_strings, prefer_const_declarations, deprecated_member_use
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../models/product-model.dart';
 import '../../utils/app-constant.dart';
@@ -157,7 +158,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                         color: AppConstant.appTextColor,
                                         fontSize: 16),
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    sendMessageOnWhatsApp(
+                                        productModel: widget.productModel);
+                                  },
                                 ),
                               ),
                             ),
@@ -194,6 +198,20 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
         ),
       ),
     );
+  }
+
+  static Future<void> sendMessageOnWhatsApp(
+      {required ProductModel productModel}) async {
+    final number = '+923111221797';
+    final message =
+        "Hello TechecH\n I want to know about this product \n ${productModel.productName} \n ${productModel.productId}";
+    final url = 'https://wa.me/$number?text=${Uri.encodeComponent(message)}';
+
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not Launch $url';
+    }
   }
 
   //check product exist or not
