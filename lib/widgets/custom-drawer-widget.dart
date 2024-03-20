@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import '../screens/auth-ui/welcome-screen.dart';
+import '../screens/user-panel/all-orders-screen.dart';
 
 class DrawerWidget extends StatefulWidget {
   const DrawerWidget({super.key});
@@ -80,13 +81,18 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: ListTile(
-                  titleAlignment: ListTileTitleAlignment.center,
-                  title: Text(
-                    "Orders",
-                    style: TextStyle(color: AppConstant.appTextColor),
-                  ),
-                  leading: Icon(Icons.shopping_bag,
-                      color: AppConstant.appTextColor)),
+                titleAlignment: ListTileTitleAlignment.center,
+                title: Text(
+                  "Orders",
+                  style: TextStyle(color: AppConstant.appTextColor),
+                ),
+                leading:
+                    Icon(Icons.shopping_bag, color: AppConstant.appTextColor),
+                onTap: () {
+                  Get.back();
+                  Get.to(() => AllOrdersScreen());
+                },
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
