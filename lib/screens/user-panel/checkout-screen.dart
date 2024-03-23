@@ -157,10 +157,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       color: AppConstant.appSecondaryColor,
                       borderRadius: BorderRadius.circular(20)),
                   child: TextButton(
-                    child: Text(
-                      "Confirm Order",
-                      style: TextStyle(
-                          color: AppConstant.appTextColor, fontSize: 18),
+                    child: Center(
+                      child: Text(
+                        "Confirm Order",
+                        style: TextStyle(
+                            color: AppConstant.appTextColor, fontSize: 18),
+                      ),
                     ),
                     onPressed: () {
                       showCustomBottomSheet();
